@@ -177,13 +177,10 @@
 				const xpos = Math.floor(Math.random() * 40);
 				const ypos = Math.floor(Math.random() * 40);
 				*/
-				printinvader(invader, 7, 8);
-				printinvader(invader, 12, 14);
-				printinvader(invader, 17, 20);
-				printinvader(invader, 25, 43);
-				printinvader(invader, 33, 50);
-				printinvader(invader, 45, 56);
-				printinvader(invader, 60, 80);
+				printinvader(invader, 10, 7);
+				printinvader(invader, 25, 7);
+				printinvader(invader, 55, 7);
+				printinvader(invader, 75, 7);
 			}
 			function printinvader(invader, xpos, ypos) {
 			
@@ -198,15 +195,14 @@
 				}
 }
 			/*if (random <= 0.5) {
-        setCharsAt(('■'), x + xpos, y + ypos);
-        setCharsAt(('■'), 10 * 2 - x + xpos, y + ypos); //spiegelverkehrt deswegen kann man nicht addieren von der Grenze aus
+      setCharsAt(('■'), x + xpos, y + ypos);
+      setCharsAt(('■'), 10 * 2 - x + xpos, y + ypos); //spiegelverkehrt deswegen kann man nicht addieren von der Grenze aus
 
-        invader[x][y] = 1
+      invader[x][y] = 1
 
-      } else {
-        invader[x][y] = 0
+      }else {
+			invader[x][y] = 0
       }*/
-
 
 			//Hauptrenderfunktion
 			function render() {
@@ -232,7 +228,7 @@
 			//Es geht los - alle 40 Millisekunden rendern
 			newGame();
 			setInterval(render, 40)
-	</script>
+	</script
 </body>
 
 </html>
