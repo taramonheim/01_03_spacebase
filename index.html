@@ -39,14 +39,14 @@
 		let run = 0;
 		let xachse = 0;
 		let right = true;
-		let yachse = 0;
+		let yachse = 5;
 
 		/*
 		 *	SPIELELOGIK
 		 */
 		//Kugel abfeuern
 		function newGame() {
-			invaders.push(generateInvader(10, 7));
+			invaders.push(generateInvader(33, 9));
 			//TODO Punktestände
 
 			//TODO Invaders erzeugen und in Array (invaders) schreiben damit sie gerendet werden können
@@ -178,25 +178,29 @@
 			if (run => 25) {
 				run = 0;
 				if (right) {
-				xachse++;
+					xachse++;
 				} else {
 					xachse--;
 				}
 			}
-			
-			let xpos = 10;
+
+			let xpos = 0;
 			//xpos und xachse zusammen größer als das was man hat 
-		  //invader wird auf 0 zurückgesetzt 
-				//
-			if (xachse + xpos >= cols - invader.length * 2) 
-		  {
-			right = false;
-			}
-			
-			if (xachse >= 140 - 30) {
+			//invader wird auf 0 zurückgesetzt 
+			//
+			if (xachse + xpos >= cols - invaders[0].length * 2) {
+				right = false;
 				xachse = 0;
-				yachse < 50; yachse++
+				yachse++
 			}
+			if (xachse + xpos <= 0) {
+				right = true;
+			}
+			//hier wird der spaceinvader nach unten bewegt 
+			/*if (xachse >= cols - invaders[0].length * 2) {
+				xachse = 0;
+				yachse++
+			}*/
 			//xachse Bezeichnung für die x-Achse 
 			printInvader(invader, xpos + xachse, yachse);
 		}
@@ -236,8 +240,8 @@
 
 		//Es geht los - alle 40 Millisekunden rendern
 		newGame();
-		setInterval(render, 40) 
-		</script> 
-		</body> 
-			</html>
-			
+		setInterval(render, 40)
+	</script>
+</body>
+
+</html>
