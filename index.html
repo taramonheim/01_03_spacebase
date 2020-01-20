@@ -40,7 +40,7 @@
 		const invaderWidth = 8;
 		const invaderHeight = 5;
 		let xVerschiebung = 0;
-		let yVerschiebung = 0; 
+		let yVerschiebung = 0;
 		let run = 0;
 
 		/*
@@ -184,11 +184,12 @@
 		//Hauptrenderfunktion
 		function render() {
 
-			run++; 
-			if (run >= 20){ //Verschiebung nach rechts jede Sekunde 
-				run = 0; 
+			run++;
+			if (run >= 20) { //Verschiebung nach rechts jede Sekunde 
+				run = 0;
 				xVerschiebung++;
 			}
+			
 			//Render Background
 			renderStr = renderBackground(rows, cols);
 
