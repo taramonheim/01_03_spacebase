@@ -24,7 +24,7 @@
 
 <body>
 	<pre id="console">
-  	<!-- Hier landet später der Output aus Javascript -->
+  <!-- Hier landet später der Output aus Javascript -->
   </pre>
 
 	<script src="Invader.js"></script>
@@ -42,6 +42,8 @@
 		let xVerschiebung = 0;
 		let yVerschiebung = 0;
 		let run = 0;
+		let invaderdirection = 1;
+		let invaderSpeed = 20;
 
 		/*
 		 *	SPIELELOGIK
@@ -51,11 +53,11 @@
 			//TODO Punktestände
 
 			//TODO Invaders erzeugen und in Array (invaders) schreiben damit sie gerendet werden können
-			invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
-			invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
-			invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
-			invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
-			invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
+			invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight),
+				1)); //greift auf die Klasse Invader uaf die Funktion generateInvader zu 
+			//invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
+			//invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
+			//invaders.push(new Invader(invaderWidth, invaderHeight, Invader.generateInvader(invaderWidth, invaderHeight), 1));
 			console.log(invaders);
 
 
@@ -65,7 +67,7 @@
 				y: rows - 10,
 				width: 10,
 				height: 3,
-				char: "*"
+				char: "$"
 			})
 		}
 
@@ -122,21 +124,21 @@
 			let str = ""
 			for (var i = 0; i < rows; i++) {
 				for (var j = 0; j < cols; j++) {
-					if (i == cnt + Math.round(Math.random() * 20)) str += "`"
+					if (i == cnt + Math.round(Math.random() * 30) * 2 ) str += "*"
 					else str += " "
 				}
 				str += "\n"
 			}
 			cnt++;
-			if (cnt > rows) cnt = 0;
+			if (cnt * 5 > rows * 0.2) cnt = 0;
 			return str;
 		}
 
 		function renderSpaceship(posX, posY) {
 			//Spaceship-Array
-			let spaceship = ["   #   ",
-				"#######",
-				"#######"
+			let spaceship = ["   ▞   ",
+				"▞▞▞▞▞▞▞",
+				"▞▞▞▞▞▞▞"
 			]
 
 			for (var i = 0; i < spaceship.length; i++) {
@@ -163,7 +165,7 @@
 			//Kugeln einen Schritt weiter bewegen, dann rendern
 			currentBullets.forEach((bullet) => {
 				bullet.y -= 1;
-				renderStr = setCharsAt(renderStr, xyToStringPos(bullet.x, bullet.y), "|");
+				renderStr = setCharsAt(renderStr, xyToStringPos(bullet.x, bullet.y), "TM");
 			})
 		}
 
@@ -185,11 +187,16 @@
 		function render() {
 
 			run++;
-			if (run >= 20) { //Verschiebung nach rechts jede Sekunde 
+			if (run >= invaderSpeed) { //Verschiebung nach rechts jede Sekunde 
 				run = 0;
 				xVerschiebung++;
-			}
 			
+			}
+
+			//expr1 || expr2	If expr1 can be converted to true, returns expr1; else, returns expr2.
+
+
+
 			//Render Background
 			renderStr = renderBackground(rows, cols);
 
@@ -207,8 +214,8 @@
 
 			//Gesamtergebnis anzeigen
 			document.getElementById("console").innerText = renderStr;
-		}
 
+		}
 		//Es geht los - alle 40 Millisekunden rendern
 		newGame();
 		setInterval(render, 40)

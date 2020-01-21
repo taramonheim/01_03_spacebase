@@ -52,6 +52,26 @@
     function newGame() {
       invaders.push(generateInvader(invaderWidth, invaderHeight));
       //TODO Punktestände
+      run++
+		if (run >= gameSpeed) {
+			run = 0;
+			if (xVerschiebung == 0 || xoffset  ==((cols/5 - invaderWidth*2)- 1)) {
+				yoffset++;
+				invaderDirection = invaderDirection * (-1);
+				xoffset = xoffset + invaderDirection;
+			}
+			else {
+					xoffset = xoffset + invaderDirection;
+			}
+		}
+
+
+
+
+
+
+
+
 
       //TODO Invaders erzeugen und in Array (invaders) schreiben damit sie gerendet werden können
       //Obstacles erzeugen
