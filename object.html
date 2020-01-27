@@ -64,7 +64,11 @@
 					xoffset = xoffset + invaderDirection;
 			}
 		}
-
+    shoot: function() {
+    var bullet = new Bullet(this.position.x, this.position.y - this.bounds.h / 2, 1, 1000);
+    this.bullets.push(bullet);
+    },
+  
 
 
 
