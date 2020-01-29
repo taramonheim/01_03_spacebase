@@ -6,9 +6,10 @@ class Helper {
 }
 
 class Invader {
-  constructor(appearance, id) {
+  constructor(appearance, ischBinKaputt, id) {
     this.appearance = appearance;
     this.id = id;
+    this.ischBinKaputt = ischBinKaputt;
   }
 
   shootLaser() {
@@ -16,11 +17,12 @@ class Invader {
   }
 
   explode() {
-    console.log("Invader " + this.id + " exploded")
-  }
-
-  isHitByBullet(bulletX, bulletY) {
-    //prüfen ob der Bullet den Invader trifft
+    this.appearance = ["                ",
+      "   \\   |   /    ",
+      " -  p u f f  -  ",
+      "   /   |   \\    ",
+      "                "
+    ];
   }
 }
 
@@ -58,7 +60,7 @@ class InvaderRow {
     let invaderAppearance = InvaderRow.generateInvader(invaderWidth, invaderHeight);
     //let numInvaders = Math.floor(spacing);
     for (let i = 0; i < numInvaders; i++) { // gerundet(x = ((breite - breite*0,2) / invaderbreite) + (x - 1) * invaderbreite/2 ))
-      let newInv = new Invader(invaderAppearance, i);
+      let newInv = new Invader(invaderAppearance, false, i);
       currentInvaders.push(newInv);
     }
     return currentInvaders;
