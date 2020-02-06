@@ -4,72 +4,56 @@
 <head>
 	<meta charset="utf-8">
 	<title>SPACE INVADERS</title>
-	<style>
-		pre {
-			position: absolute;
-			left: 50%;
-			top: 50%;
-			-webkit-transform: translate(-50%, -50%);
-			transform: translate(-50%, -50%);
-			border: 1px solid gray;
-		}
-
-		body {
-			color: white;
-			background-color: black;
-		}
-	</style>
+	<link href="style.css" rel="stylesheet"/>
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
 </head>
 
 <body>
+	<p class="scoreboard" id="scoreboard">SCOREBOARD<br></p>
+	<p class="spaceinvaders" id="spaceinvaders">Space Invaders</p>
 	<pre id="console">
-  	<!-- Hier landet später der Output aus Javascript -->
+  <!-- Hier landet später der Output aus Javascript -->
   </pre>
-
-	<script src="classes.js"></script>
+	<script src="classes.js"></script> <!--Hier greifen wir auf die classes.js zu, in der wir die Klassen definiert haben-->
 	<script>
-		let startPosX = 1;
+		//JavaScript-Quelltexte werden in HTML in einem script-Element notiert oder referenziert. Das script-Element darf dabei im body oder head des HTML-Dokuments notiert werden.
+		let startPosX = 1; //Start Positionen der Invader Row 
 		let startPosY = 1;
 		let invaders = [];
-		const gameSpeed = 10;
-		const invaderWidth = 8;
-		const invaderHeight = 5;
+		const gameSpeed = 10; //hier bestimmen wir wie schnell sich die Invader bewegen
+		const invaderWidth = 8; //Größe des Invaders
+		const invaderHeight = 5; //Größe des Invaders
 		let renderStr = "";
-		let rows = 50;
-		let cols = 140;
+		let rows = 50; //Maße der Viewbox, in dem die Codeelemnete gerendert werden
+		let cols = 140; //Maße der Viewbox, in dem die Codeelemnete gerendert werden
 		let cnt = 0;
 		let spaceshipPos = Math.round(cols / 2);
 		let currentSpaceshipBullets = [];
 		let obstacles = [];
 		let run = 0;
 		let invaderDirection = 1;
-		let invaderRow = [];
-		let rowId = 0;
-
+		let invaderRow = []; //die InvaderRow wird im Array gespeichert 
+		let rowId = 0;//wir setzten die rowId zunächst auf null 
+		let invaderPoints = 0;
 		/*
 		 *	SPIELELOGIK
 		 */
 
 		function newGame() {
-			// let invaderRowSegment = generateInvader(invaderWidth, invaderHeight);
-			// for (let i = 0; i < 5; i++) { {
-			// 		invaders[i] = {};
-			// 		invaders[i].Appearance = invaderRowSegment
-			// 	}
-			// }
 
 			if (rowId == 0) {
 				let newInvaderRow = new InvaderRow(startPosX, startPosY, invaderWidth, invaderHeight, InvaderRow
 					.generateInvaderRow(invaderWidth, invaderHeight), rowId);
 				invaders.push(newInvaderRow);
-			}
+			} //hier wird die InvaderRow mit den 5 Invadern generiert 
 
 			console.log(invaders);
 			//TODO Punktestände
+
 			obstacles.push({
 				x: Math.round(cols / 2) - 5,
-				y: rows - 10,
-				width: 10,
+				y: rows - 10, 
+				width: 10, 
 				height: 3,
 				char: "="
 			});
@@ -130,7 +114,7 @@
 				" ~ ° ~",
 				"/:::::\\",
 				"|:::::|"
-			]
+			] //hier einmal das Array in dem das Aussehen des spaceships gespeichert wird 
 
 			for (var i = 0; i < spaceship.length; i++) {
 				//Zeilenweise in String schreiben
@@ -158,12 +142,15 @@
 					let currentId = 0;
 					for (let invaderPos = invaders[rowId].posX; invaderPos <= invaders[rowId].posX + 5 * (invaderWidth * 2 +
 							invaderWidth / 2); invaderPos = invaderPos + invaderWidth * 2 + invaderWidth / 2) {
-						if (bullet.x > invaderPos && bullet.x < invaderPos + invaderWidth * 2) {
+						if (bullet.x > invaderPos && bullet.x < invaderPos + invaderWidth * 2) { //? 
 							invaders[rowId].invaders[currentId].ischBinKaputt = true;
+							//in der oberen Zeile ermittelt der Invader anhand der Ids seine Position
+							//hier checkt der Invader ob er getroffen ist ==true wenn dem so ist, dann explodiert dieser 
 							invaders[rowId].invaders[currentId].explode();
-							break;
+							invaderPoints++; //hier wird immer ein Punkt dazugerechnet sobald der Invader getroffen wird
+							break; // mit dem break statement jumpt man nun aus dem loop, sodass kein unendlicher loop entstehen kann
 						}
-						currentId++;
+						currentId++;//?
 					}
 					currentSpaceshipBullets = currentSpaceshipBullets.filter(currentBullet => currentBullet != bullet);
 				}
@@ -193,36 +180,41 @@
 
 		//Hauptrenderfunktion
 		function render() {
-			run++
-			if (run >= gameSpeed) {
-				run = 0;
-				for (let i = rowId; i < invaders.length; i++) {
-					for (let j = 0; j < invaders[i].invaders.length; j++) {
-						if (invaders[i].invaders[j].ischBinKaputt == true) {
-							invaders[i].invaders[j].appearance = [];
-						}
+		run++
+		if (run >= gameSpeed) {
+			run = 0;
+			for (let i = rowId; i < invaders.length; i++) {
+				for (let j = 0; j < invaders[i].invaders.length; j++) {
+					if (invaders[i].invaders[j].ischBinKaputt) {
+						invaders[i].invaders[j].explodeTime++;
 					}
-				}
-				if (invaders[rowId].posX == 0 || invaders[rowId].posX == Math.floor(cols * 0.2 + invaderWidth * 2 - 5)) {
-					invaders[rowId].posY++;
-					invaderDirection = invaderDirection * (-1);
-					invaders[rowId].posX = invaders[rowId].posX + invaderDirection;
-				} else {
-					invaders[rowId].posX = invaders[rowId].posX + invaderDirection;
-				}
+					if (invaders[i].invaders[j].explodeTime >= 2) {
+						invaders[i].invaders[j].appearance = [];
+					}
+				}					
 			}
-			//Render Background
-			renderStr = renderBackground(rows, cols);
-			//Render Obstacle
-			renderObstacles();
-			renderSpaceship(spaceshipPos, rows - 4, renderStr);
-			//Render Invaders
-			renderInvaderRow(invaders[rowId].posX, invaders[rowId].posY, invaders, renderStr);
-			//Gesamtergebnis anzeigen
-			//Render Bullets
-			renderBullets(renderStr);
-			document.getElementById("console").innerText = renderStr;
+					if (invaders[rowId].posX == 0 ||invaders[rowId].posX  ==  Math.floor(cols*0.2 + invaderWidth*2 - 5)) {
+						invaders[rowId].step("down");
+						invaderDirection = invaderDirection * (-1);
+						invaders[rowId].step(invaderDirection);
+					}
+				else {
+					invaders[rowId].step(invaderDirection);
+				}
 		}
+		//Render Background
+		renderStr = renderBackground(rows,cols);
+		//Render Obstacle
+		renderObstacles();
+		renderSpaceship(spaceshipPos, rows-4, renderStr);
+		//Render Invaders
+		renderInvaderRow(invaders[rowId].posX, invaders[rowId].posY, invaders, renderStr);
+		//Gesamtergebnis anzeigen
+		//Render Bullets
+		renderBullets(renderStr);
+		document.getElementById("scoreboard").innerText = "Scoreboard \n \n" + invaderPoints;
+		document.getElementById("console").innerText = renderStr;
+	}
 
 		//Es geht los - alle 40 Millisekunden rendern		
 		newGame();
