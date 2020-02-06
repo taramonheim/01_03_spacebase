@@ -75,7 +75,6 @@ Breite und Höhe, zudem greift sie auf unsere erzeugten invaders zu und hat selb
     this.height = height;
     this.invaders = invaders;
   } 
-  //hier werden noch die beiden static Variablen eingefügt
   </pre>
 
 

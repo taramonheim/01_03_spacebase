@@ -28,13 +28,12 @@ body {
 
 .spaceinvaders {
   font-family: 'Righteous', cursive;
-  background-color: white;
-  color: black;
-  font-size: 20px;
+  background-color: black;
+  color: white;
+  font-size: 50px;
   text-align: center;
-  border: 1px solid white;
   position: absolute;
   top: 5vh;
-  right: 69vw;
+  right: 58vw;
   width: 15ch;
 } 
