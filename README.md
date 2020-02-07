@@ -1,32 +1,34 @@
-# 01_03_spacebase
 
-# <u>Dokumentation Space Invader</u>
+# <b>Dokumentation Space Invader Projekt/ 01_03_spacebase</b>
 ##### Maximilian Becht und Tara Monheim
 >Maximilian Becht auf [Github](https://github.com/maxicozy).
 
 >Tara Monheim auf [Github](https://github.com/taramonheim).
 
-Unser Space Invader Projekt wurde im Laufe des ersten Semesters im Fach Programmiersprachen 1 gecoded. Das Space Invader Projekt soll es dem Spieler ermöglichen mit dem Spaceship die Invaders zu treffen und sie zum explodieren zu bringen.
-Die Invader Reihe kommt langsam immer weiter runter. Also ran an die Tasten und probier es aus!
+<img src="spaceinvaders.png">
 
-Den Code haben wir mithilfe unseres Dozenten[ Florian Geiselhart](https://github.com/fg-uulm) (das bist du)
-geschrieben. Er basiert auf dem Basis Code von unserem Dozenten und wurde von uns erweitert. Den Basis Code findet man
-[hier](https://github.com/hfgcoding/01_03_spacebase).
-Auch das Internet hilft in der Regel, aber da es sehr viele Space Invader Games gibt, die programmiert wurden,verliert
-man schnell den Überblick.
-Also ransetzen, denken und coden! Was immer hilft:
+Unser Space Invader Projekt wurde im Laufe des ersten Semesters im Fach Programmiersprachen 1 gecoded. Das Space Invader Projekt soll es dem Spieler ermöglichen mit dem Spaceship die Invaders zu treffen und sie zum Explodieren zu bringen.
+Die Invader Reihe kommt langsam immer weiter runter. Also ran an die Tasten und probier unser Spiel aus!
+
+Den Code haben wir mithilfe unseres Dozenten[ Florian Geiselhart](https://github.com/fg-uulm)
+geschrieben. Er basiert auf dem Basis Code von unserem Dozenten und wurde von uns erweitert. Den Basis Code findet man [hier](https://github.com/hfgcoding/01_03_spacebase).
+Auch das Internet hilft in der Regel, aber da es sehr viele Space Invader Games gibt, die programmiert wurden, verliert man schnell den Überblick.
+Also ransetzen, denken und coden! Was auch immer hilft:
 Die Klassen und Eigenschaften einfach mal aufzuschreiben. Mit Papier und Stift. Ganz Old School.
 
-Eigenschaften des Spiels, an denen wir gearbeitet haben:
+## Eigenschaften des Spiels, an denen wir gearbeitet haben:
 
 1. Die Invader werden radom gerendert.
 
 2. Die Invader werden in einer Reihe generiert.
 3. Es werden so viele Invader generiert, wie in das Feld passen.
-4. Wenn die Invader Reihe an den Rand des Felds kommt bewegt sie sich eine Zeile runter und in die andere Richtung.
+4. Wenn die Invader Reihe an den Rand des Spielfelds kommt bewegt sie sich eine Zeile runter und in die andere Richtung.
 5. Das Spaceship schießt auf die Invader, trifft ein Bullet den Invader, explodiert dieser.
-6. Ein Score am Rand zählt hoch, wenn man einen Invader trifft.
-7. Unser Code baut auf Klassen auf, die wir in der Javascript Datei definiert haben.
+6. Die Explosion wird mit einer induvidualisierten Animation gezeigt. 
+7. Das Scoreboard am Rand zählt hoch, wenn man einen Invader trifft.
+8. Wir haben eine Grundstruktur mit Klassen geschaffen, auf der der Code aufbaut. 
+
+## Wer wir sind: 
 
 <img src="coder2.JPG" />
 <img src="Coder.JPG" />
@@ -38,16 +40,16 @@ Um das Spiel selbst zu erleben, kann man den Code entweder einfach von Github do
 öffnen, um ihn zu individualisieren oder man öffnet ihn mit einem Browser.
 Im Code Editor braucht man
 die [classes.js](classes.js) und die [index.html](index.html), die auf Github zu finden sind.
-Um das ganze in einem belibiegen Browser öffnen zu können, muss man das Repository auf Github forken und clonen und dann
-die Html Datei mit einem Browser öffnen.
+Um das ganze in einem beliebigen Browser öffnen zu können, muss man das Repository auf Github forken und clonen und dann
+die Html Datei mit einem gewünschten Browser öffnen.
 Sobald die Seite geladen ist startet auch das Spiel. Die Invader bewegen sich in ihrer Reihe von links nach rechts,
-treffen sie an den Rand, rücken sie eine Zeile nach unten und ändern ihre BEwegungsrichtung nun nach links.Das Spaceship
+treffen sie an den Rand, rücken sie eine Zeile nach unten und ändern ihre Bewegungsrichtung nun nach links. Das Spaceship
 kann man mit den <kbd>key left</kbd> und <kbd>key right</kbd> Tasten bewegen. Durch die
 <kbd>Leertaste</kbd> schießt das Spaceship auf die Invader. Diese explodieren, sobald sie getroffen werden. Durch die
 Barriere, die das Spaceship schützen soll, kann man nicht durchschießen.
 Die Invaders selber können zur Zeit noch nicht auf das Spaceship schießen.
 Würde das funktionieren, müsste auch die Barriere, bei Abschuss derer, Stück für Stück verschwinden.
-Durch den Reload Button des Fensters kann man das Spiel neu starten.
+Durch den Reload Button des Fensters kann man das Spiel neu starten. 
 
 # Structure / Aufbau
 
@@ -106,6 +108,7 @@ class InvaderRow {
   </pre>
 
 * Die Klasse `InvaderRow` beinhaltet ihre eigene Position und invader.
+
 ### Desweiteren beinhaltet die Klasse `InvaderRow` die folgenden Methoden:
 
 ### **static generateInvader:**
@@ -165,7 +168,7 @@ function renderInvaderRow(invaders) {
 		}
 	}</pre>
 
-* Diese Funktion läuft durch die aktuelle Invaderrow und deren Invader und schreibt diese anschließend in den Renderstring. 
+* Diese Funktion läuft durch die aktuelle Invaderrow und deren Invader und schreibt diese anschließend in den RenderString. 
 
 ### function renderBullets
 
@@ -196,36 +199,37 @@ function renderBullets() {
 </pre>
 
 *   Ein Großteil dieser Funktion wurde von unserem Dozenten gecoded. Wir haben hier die Funktion hinzugefügt, die prüft, ob die Bullet den Invader trifft. Das funktioniert über einen Abgleich, ob sich im Feld über der Bullet ein Hashtag befindet, also der Character aus dem ein Invader besteht.
-Wenn dies der Fall ist wird nun abhängig von der aktuellen Anfangsposition der Invaderreihe ausgerechnet an welchem Invader sich die Bullet befindet, dann führt der getroffene Invader die Methode
+Wenn dies der Fall ist, wird nun abhängig von der aktuellen Anfangsposition der Invaderreihe ausgerechnet an welchem Invader sich die Bullet befindet, dann führt der getroffene Invader die Methode
 `explode()` aus, ausserdem wird eine Variable mit jedem Treffer um eins hochgezählt.
-Zusätzlich wird die aktuell gerenderte Bullet aus dem currentSpaceshipBullets Array herausgefiltert, falls diese einen Invader getroffen hat.
+Zusätzlich wird die aktuell gerenderte Bullet aus dem `currentSpaceshipBullets` Array herausgefiltert, falls diese einen Invader getroffen hat.
 
-* Das gleiche Prinzip haben wir für die Obstacles übernommen, dass die aktuell gerenderte Bullet auch checkt, ob sich über ihr ein `=` befindet. In diesem Fall wird die Bullet auch gelöscht. 
-
-
+* Das gleiche Prinzip haben wir für die Obstacles übernommen: die aktuell gerenderte Bullet checkt auch, ob sich über ihr ein `=` befindet. In diesem Fall wird die Bullet gelöscht. 
 
 
 
-### Zusammenfassung
-Abläufe:
 
-* die Invaderreihe wird generiert und bewegt sich dann:
 
-  * In der `newGame()` Funktion wird ein neues Objekt der Klasse InvaderRow erstellt. Dieses generiert sich selbst ein Array aus Objekten die Alle jeweils einen Invader enthalten. Ausserdem erhält jeder Invader, sowie die Reihe selbst eine Id. Die Menge an Invadern, die in einer InvaderRow generiert, wird in Abhängigkeit von Spielfeldbreite und Invaderbreite ausgerechnet.
-  * Die Methode renderInvaders() Läuft durch alle Invader der aktuellen InvaderRow und schreibt diese nacheinander in den RenderString. Die Position des ersten Invaders ist in der InvaderRow gespeichert, die anderen Positionen werden durch das aufaddieren des Abstandes ermittelt.
-  * In der render() Funktion wird nach Verstreichen einer über die gameSpeed definierten Zeit ein Ablauf ausgelöst, der die Methode step(direction) aufruft, die direction hängt dabei von der Aktuellen Richtung ab in die sich die Invader bewegen und davon ob sich die Invaderreihe aktuell an einer Wand befindet.
+## Zusammenfassung
 
-* ein Invader wird abgeschossen:
+### Abläufe:
 
-  * die renderBullets() Methode fragt bei jedem Render einer Bullet ab ob sich über ihr ein Invaderpixel befindet. In diesem Fall wird löst der getroffene Invader die Methode explode() aus, ausserdem wird die variable ischBinKaputt auf true gesetzt, damit die render() Funktion den explodeTime Timer des Invaders iniziieren kann und so der explodierte Invader nach einer Zeit verschwindet.
-  Ausserdem zählt bei einem Treffer die variable killedInvaderCount/ invaderPoints hoch, diese wird in einem Scoreboard in der html Datei angezeigt.
+* <i> die Invaderreihe wird generiert und bewegt sich dann</i>:
+
+  * In der `newGame()` Funktion wird ein neues Objekt der Klasse InvaderRow erstellt. Dieses generiert sich selbst ein Array aus Objekten, die Alle jeweils einen Invader enthalten. Ausserdem erhält jeder Invader, sowie die Reihe selbst eine Id. Die Menge an Invadern, die in einer InvaderRow generiert wird, wird in Abhängigkeit von Spielfeldbreite und Invaderbreite ausgerechnet.
+  * Die Methode `renderInvaders()` läuft durch alle Invader der aktuellen InvaderRow und schreibt diese nacheinander in den RenderString. Die Position des ersten Invaders ist in der InvaderRow gespeichert, die anderen Positionen werden durch das aufaddieren des Abstandes ermittelt.
+  * In der `render()` Funktion wird nach Verstreichen einer über die gameSpeed definierten Zeit ein Ablauf ausgelöst, der die Methode `step(direction)` aufruft, die direction hängt dabei von der aktuellen Richtung ab, in die sich die Invader bewegen und davon ob sich die Invaderreihe aktuell an einer Wand befindet.
+
+* <i>ein Invader wird abgeschossen</i>:
+
+  * die `renderBullets()` Methode fragt bei jedem Render einer Bullet ab, ob sich über ihr ein Invaderpixel befindet. In diesem Fall löst der getroffene Invader die Methode `explode()` aus. Zudem wird die Variable `ischBinKaputt` auf `true` gesetzt, damit die `render()` Funktion den `explodeTime` Timer des Invaders iniziieren kann und so der explodierte Invader nach einer Zeit verschwindet.
+  Parallel zählt bei einem Treffer die Variable `killedInvaderCount/ invaderPoints` hoch, diese wird in einem Scoreboard in der Html Datei angezeigt.
 
 
 ## ToDos
 
-1. Man muss die Invaders selber schießen lassen. Dies muss random passieren.  
+1. in einem weiteren Shcritt könnte man  die Invaders selber schießen lassen. Dies sollte random passieren.  
 
-2. Es sollen mehrere Reihen von Invaders aufeinander folgen.
+2. Es können mehrere Reihen von Invaders aufeinander folgen.
 3. Das Hindernis muss bei Abschuss der Invader kaputt gehen.
 4. Wenn die Invader eine gewissen Punkt auf der y-Achse erreichen, sollte der Spieler verloren haben.
 5. Man kann noch eine Game Over/ Win Schrift einbauen.
