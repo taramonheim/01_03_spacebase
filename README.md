@@ -1,6 +1,6 @@
 # 01_03_spacebase
 
-## <u>Dokumentation Space Invader</u>
+# <u>Dokumentation Space Invader</u>
 ##### Maximilian Becht und Tara Monheim
 >Maximilian Becht auf [Github](https://github.com/maxicozy).
 
@@ -33,7 +33,7 @@ Eigenschaften des Spiels, an denen wir gearbeitet haben:
 <img src="Coder.JPG" />
 
 
-## Usage / Benutzung
+# Usage / Benutzung
 
 Um das Spiel selbst zu erleben, kann man den Code entweder einfach von Github downloaden und in einen Code Editor
 öffnen, um ihn zu individualisieren oder man öffnet ihn mit einem Browser.
@@ -50,37 +50,40 @@ Die Invaders selber können zur Zeit noch nicht auf das Spaceship schießen.
 Würde das funktionieren, müsste auch die Barriere, bei Abschuss derer, Stück für Stück verschwinden.
 Durch den Reload Button des Fensters kann man das Spiel neu starten.
 
-## Structure / Aufbau
+# Structure / Aufbau
 
 Wir haben das Spiel anhand von Klassen aufgebaut,
 deren Eigenschaften wir in der Javascript Datei angegeben haben. In der Html Datei greifen wir auf diese Klassen zu.
 
-* **Invader**: Hier ruft die Klasse Invader durch den constructor ihre `Appaerance` und `id` auf.
+### **class Invader**:
+ Hier ruft die Klasse Invader durch den constructor ihre `Appaerance` und `id` auf.
 
 <pre>class Invader {
-  constructor(appearance, id) {
+  constructor(appearance, ischBinKaputt, explodeTime, id) {
     this.appearance = appearance;
     this.id = id;
+    this.ischBinKaputt = ischBinKaputt;
+    this.explodeTime = explodeTime;
   } </pre>
 
-* **Invader Row** Eine Klasse, die die Invader in einer Reihe generiert. Mit den Eigenschaften Position der Reihe, der
+### **class InvaderRow** 
+Eine Klasse, die die Invader in einer Reihe generiert. Mit den Eigenschaften Position der Reihe, der
 Breite und Höhe, zudem greift sie auf unsere erzeugten invaders zu und hat selber eine id.
 
-<pre>class InvaderRow {
+<pre>
+class InvaderRow {
   constructor(posX, posY, width, height, invaders, id) {
-    this.id = id;
+    this.id = id; 
     this.posX = posX;
-    this.posY = posY; 
+    this.posY = posY;
     this.width = width;
     this.height = height;
     this.invaders = invaders;
-  } 
+  }
   </pre>
 
-
-
-
-* **static generateInvader** Eine Variable, um den Invader in Code abzubilden. Enthält typische Eigenschaften des
+### **static generateInvader:**
+Eine Variable, um den Invader in Code abzubilden. Enthält typische Eigenschaften des
 Invaders:
 
 >Mit Static deklariert man solche Variablen, die bei jedem Objekt einer Klasse gleich sein sollen und sobald die
@@ -89,12 +92,12 @@ Variable in einem der Objekte verändert wurden, auch bei allen anderen Objekten
 <pre> static generateInvader(width, height) {
     let currentInvader = [];
     for (let y = 0; y < height; y++) {
-      currentInvader[y] = " ".repeat(width*2+1);
+      currentInvader[y] = " ".repeat(width * 2 + 1); 
       for (let x = 0; x < width; x++) {
         let randomNumber = Math.random();
-        if (randomNumber >= 0.5) {
-          currentInvader[y] = (Helper.setCharsAt(currentInvader[y], x,'#'));
-          currentInvader[y] = (Helper.setCharsAt(currentInvader[y], 2 * width - x,'#'));
+        if (randomNumber >= 0.5) {  
+          currentInvader[y] = (Helper.setCharsAt(currentInvader[y], x, '#'));
+          currentInvader[y] = (Helper.setCharsAt(currentInvader[y], 2 * width - x, '#'));
         }
       }
     }
@@ -108,33 +111,56 @@ Variable in einem der Objekte verändert wurden, auch bei allen anderen Objekten
 currentInvaders Arrays geschrieben. Somit hat man die Hälfte diesens und sie wird gespiegelt.
 
 
-* **static generateInvaderRow:** Eine Variable um eine Person in Code abzubilden. Enthält typische Eigenschaften und
+### **static generateInvaderRow:** 
+
+Eine Variable um eine Person in Code abzubilden. Enthält typische Eigenschaften und
 Methoden von Menschen, um mit Bier zu interagieren:
-<pre> static generateInvaderRow(invaderWidth, invaderHeight) {
+<pre>  static generateInvaderRow(invaderWidth, invaderHeight) {
     let currentInvaders = [];
-    let rowWidth = Math.floor(cols*0.8);
-    let wholeInvader = invaderWidth * 2;
-    let spacerWidth = invaderWidth/2; 
-    let numInvaders = Math.floor((rowWidth / ((wholeInvader+spacerWidth))));
-    let invaderAppearance = InvaderRow.generateInvader(invaderWidth, invaderHeight);
-    //let numInvaders = Math.floor(spacing);
-			for(let i = 0; i < numInvaders ; i++) { // gerundet(x = ((breite - breite*0,2) / invaderbreite) + (x - 1) * invaderbreite/2 ))
-        let newInv = new Invader(invaderAppearance, i);
-        currentInvaders.push(newInv);
-			}
-		return currentInvaders;
-  } </pre>
+    let rowWidth = Math.floor(cols * 0.8); 
+    let wholeInvader = invaderWidth * 2; 
+    let spacerWidth = invaderWidth / 2; 
+    let numInvaders = Math.floor((rowWidth / ((wholeInvader + spacerWidth)))); 
+    let invaderAppearance = InvaderRow.generateInvader(invaderWidth, invaderHeight); 
+    for (let i = 0; i < numInvaders; i++) { 
+      let newInv = new Invader(invaderAppearance, false, 0, i); 
+      currentInvaders.push(newInv);
+    }
+    return currentInvaders;
+  }
+}</pre>
 
-Hier rechnen wir aus wie viele Invaders in einer Reihe gerendert werden können.
-
-## Zusammenfassung
+# function renderBullets
 
 
 
+# function renderInvaderrow
 
 
 
 
+# Zusammenfassung
+
+
+
+
+
+
+
+
+## ToDos
+
+1. Man muss die Invaders selber schießen lassen. Dies muss random passieren.
+2. Es sollen mehrere Reihen von Invaders aufeinander folgen.
+3. Das Hindernis muss bei Abschuss der Invader kaputt gehen.
+4. Wenn die Invader eine gewissen Punkt auf der y-Achse erreichen, sollte der Spieler verloren haben.
+5. Man kann noch eine Game Over/ Win Schrift einbauen.
+6. Wenn die Invader getroffen werden, erhöhen sie auch die Geschwindigkeit, damit es schwieriger wird sie Abzuschießen.
+7. Einen New Game Button, um das Spiel mit dem Button neu zu starten.
+8. Das Spaceship hat mehrere Leben und eine Lebensanzeige, die bei Treffer durch Invader weniger werden.
+9. Ein Invader Boss, der auftaucht und mehr Punkte bringt.
+10. Hintergrundmusik und Soundeffekte
+13. Verschiedene Level mit unterschiedlichen Schwierigkeitsstufen.
 
 
 
