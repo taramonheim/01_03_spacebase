@@ -183,7 +183,8 @@ currentSpaceshipBullets = currentSpaceshipBullets.f(currentBullet => currentBull
 
 ## ToDos
 
-1. Man muss die Invaders selber schießen lassen. Dies muss random passieren.
+1. Man muss die Invaders selber schießen lassen. Dies muss random passieren.  
+
 2. Es sollen mehrere Reihen von Invaders aufeinander folgen.
 3. Das Hindernis muss bei Abschuss der Invader kaputt gehen.
 4. Wenn die Invader eine gewissen Punkt auf der y-Achse erreichen, sollte der Spieler verloren haben.
