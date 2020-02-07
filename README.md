@@ -6,8 +6,7 @@
 
 >Tara Monheim auf [Github](https://github.com/taramonheim).
 
-Unser Space Invader Projekt wurde im Laufe des ersten Semesters im Fach Programmiersprachen 1 gecoded. Das Space Invader
-Projekt soll es dem Spieler ermöglichen mit dem Spaceship die Invaders zu treffen und sie zum explodieren zu bringen.
+Unser Space Invader Projekt wurde im Laufe des ersten Semesters im Fach Programmiersprachen 1 gecoded. Das Space Invader Projekt soll es dem Spieler ermöglichen mit dem Spaceship die Invaders zu treffen und sie zum explodieren zu bringen.
 Die Invader Reihe kommt langsam immer weiter runter. Also ran an die Tasten und probier es aus!
 
 Den Code haben wir mithilfe unseres Dozenten[ Florian Geiselhart](https://github.com/fg-uulm) (das bist du)
@@ -93,9 +92,21 @@ class InvaderRow {
     this.height = height;
     this.invaders = invaders;
   }
+    step(direction) {
+    if (direction == 1) {
+      this.posX += 1;
+    }
+    if (direction == -1) {
+      this.posX -=1;
+    }
+    if (direction == "down") {
+      this.posY += 1;
+    }
+  }
   </pre>
 
 * Die Klasse `InvaderRow` beinhaltet ihre eigene Position und invader.
+### Desweiteren beinhaltet die Klasse `InvaderRow` die folgenden Methoden:
 
 ### **static generateInvader:**
 
@@ -184,12 +195,12 @@ function renderBullets() {
 }
 </pre>
 
-*   Ein Großteil dieser Funktion wurde von unserem Dozenten gecoded. Wir haben hier die Funktion hinzugefügt, die prüft, ob die Bullet den Invader trifft. Das funktioniert über einen abgleich ob sich im Feld über der Bullet ein Hashtag befindet, also der Character aus dem ein Invader besteht.
+*   Ein Großteil dieser Funktion wurde von unserem Dozenten gecoded. Wir haben hier die Funktion hinzugefügt, die prüft, ob die Bullet den Invader trifft. Das funktioniert über einen Abgleich, ob sich im Feld über der Bullet ein Hashtag befindet, also der Character aus dem ein Invader besteht.
 Wenn dies der Fall ist wird nun abhängig von der aktuellen Anfangsposition der Invaderreihe ausgerechnet an welchem Invader sich die Bullet befindet, dann führt der getroffene Invader die Methode
 `explode()` aus, ausserdem wird eine Variable mit jedem Treffer um eins hochgezählt.
-Ausserdem wird die aktuell gerenderte Bullet aus dem currentSpaceshipBullets Array herausgefiltert, falls diese einen Invader getroffen hat.
+Zusätzlich wird die aktuell gerenderte Bullet aus dem currentSpaceshipBullets Array herausgefiltert, falls diese einen Invader getroffen hat.
 
-* Das gleiche Prinzip haben wir für die Obstacles übernommen, dass die aktuell gerenderte Bullet auch checkt ob sich über ihr ein `=` befindet, auch in diesem Fall wird die Bullet gelöscht.
+* Das gleiche Prinzip haben wir für die Obstacles übernommen, dass die aktuell gerenderte Bullet auch checkt, ob sich über ihr ein `=` befindet. In diesem Fall wird die Bullet auch gelöscht. 
 
 
 
@@ -197,15 +208,17 @@ Ausserdem wird die aktuell gerenderte Bullet aus dem currentSpaceshipBullets Arr
 
 ### Zusammenfassung
 Abläufe:
+
 * die Invaderreihe wird generiert und bewegt sich dann:
+
+  * In der `newGame()` Funktion wird ein neues Objekt der Klasse InvaderRow erstellt. Dieses generiert sich selbst ein Array aus Objekten die Alle jeweils einen Invader enthalten. Ausserdem erhält jeder Invader, sowie die Reihe selbst eine Id. Die Menge an Invadern, die in einer InvaderRow generiert, wird in Abhängigkeit von Spielfeldbreite und Invaderbreite ausgerechnet.
+  * Die Methode renderInvaders() Läuft durch alle Invader der aktuellen InvaderRow und schreibt diese nacheinander in den RenderString. Die Position des ersten Invaders ist in der InvaderRow gespeichert, die anderen Positionen werden durch das aufaddieren des Abstandes ermittelt.
+  * In der render() Funktion wird nach Verstreichen einer über die gameSpeed definierten Zeit ein Ablauf ausgelöst, der die Methode step(direction) aufruft, die direction hängt dabei von der Aktuellen Richtung ab in die sich die Invader bewegen und davon ob sich die Invaderreihe aktuell an einer Wand befindet.
 
 * ein Invader wird abgeschossen:
 
-
-
-
-
-
+  * die renderBullets() Methode fragt bei jedem Render einer Bullet ab ob sich über ihr ein Invaderpixel befindet. In diesem Fall wird löst der getroffene Invader die Methode explode() aus, ausserdem wird die variable ischBinKaputt auf true gesetzt, damit die render() Funktion den explodeTime Timer des Invaders iniziieren kann und so der explodierte Invader nach einer Zeit verschwindet.
+  Ausserdem zählt bei einem Treffer die variable killedInvaderCount/ invaderPoints hoch, diese wird in einem Scoreboard in der html Datei angezeigt.
 
 
 ## ToDos
