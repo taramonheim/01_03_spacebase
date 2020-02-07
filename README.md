@@ -141,38 +141,65 @@ currentInvaders Arrays geschrieben. Somit hat man die Hälfte dieses Invaders. D
 
 * hier wird ausgerechnet wie viele Invader in 80 % der Spielfeldbreite passen. Anschließend werden so viele Invader in ein Array gepusht.
 
+### function renderInvaderrow
+
+<pre>
+function renderInvaderRow(invaders) {
+  let currentInvXPos = invaders[rowId].posX;
+  for (let j = 0; j < invaders[rowId].invaders.length; j++) {
+    for (let i = 0; i < invaders[rowId].invaders[j].appearance.length; i++) {
+      renderStr = Helper.setCharsAt(renderStr,xyToStringPos(invaders[rowId].invaders[j].id + currentInvXPos, invaders[rowId].posY+i), invaders[rowId].invaders[j].appearance[i]);		
+		}
+    currentInvXPos = currentInvXPos + invaderWidth* 2 + invaderWidth/2;
+		}
+	}</pre>
+
+* Diese Funktion läuft durch die aktuelle Invaderrow und deren Invader und schreibt diese anschließend in den Renderstring. 
 
 ### function renderBullets
 
 <pre>	
 function renderBullets() {
-currentSpaceshipBullets = currentSpaceshipBullets.filter(bullet => bullet.y > 1);
-currentSpaceshipBullets.forEach((bullet) => {
-bullet.y -= 1;if (renderStr[xyToStringPos(bullet.x, bullet.y - 1)'#') {
-let currentId = 0;
-for (let invaderPos = invaders[rowId].posX; invade<= invaders[rowId].posX + 5 * (invaderWidth * 2 +
-		invaderWidth / 2); invaderPos = invaderPinvaderWidth * 2 + invaderWidth / 2) {
-if (bullet.x > invaderPos && bullet.x < invaderPinvaderWidth *2) { 
-invaders[rowId].invaders[currentId].ischBinKaputrue; 
-invaders[rowId].invaders[currentId].explode();
-
-invaderPoints++; 
-loop
-break; 
+  currentSpaceshipBullets = currentSpaceshipBullets.filter(bullet => bullet.y > 1);
+  currentSpaceshipBullets.forEach((bullet) => {
+    bullet.y -= 1;
+    if (renderStr[xyToStringPos(bullet.x, bullet.y - 1)] == '#') {
+      let currentId = 0;
+      for (let invaderPos = invaders[rowId].posX; invaderPos <= invaders[rowId].posX + (invaderWidth * 2 + invaderWidth / 2); invaderPos = invaderPos + invaderWidth * 2 + invaderWidth / 2) {
+        if (bullet.x > invaderPos && bullet.x < invaderPos + invaderWidth * 2) { 
+          invaders[rowId].invaders[currentId].ischBinKaputt = true; 
+          invaders[rowId].invaders[currentId].explode();
+          invaderPoints++; 
+          break; 
+        }   
+      currentId++;
+      }
+    currentSpaceshipBullets = currentSpaceshipBullets.filter(currentBullet => currentBullet != bullet);
+    }
+    if (renderStr[xyToStringPos(bullet.x, bullet.y - 1)] == '=') {
+      currentSpaceshipBullets = currentSpaceshipBullets.filter(currentBullet => currentBullet != bullet};
+    }
+    renderStr = Helper.setCharsAt(renderStr, xyToStringPos(bullet.x, bullet.y), "|");
+  })
 }
-currentId++;
-}
-currentSpaceshipBullets = currentSpaceshipBullets.f(currentBullet => currentBullet != bullet);}if (renderStr[xyToStringPos(bullet.x, bullet.y - 1)'=') {
-currentSpaceshipBullets = currentSpaceshipBullets.f(currentBullet => currentBullet != bullet);}renderStr = Helper.setCharsAt(renderStr, xyToStri(bullet.x, bullet.y), "|")}</pre>
+</pre>
 
-* 
+*   Ein Großteil dieser Funktion wurde von unserem Dozenten gecoded. Wir haben hier die Funktion hinzugefügt, die prüft, ob die Bullet den Invader trifft. Das funktioniert über einen abgleich ob sich im Feld über der Bullet ein Hashtag befindet, also der Character aus dem ein Invader besteht.
+Wenn dies der Fall ist wird nun abhängig von der aktuellen Anfangsposition der Invaderreihe ausgerechnet an welchem Invader sich die Bullet befindet, dann führt der getroffene Invader die Methode
+`explode()` aus, ausserdem wird eine Variable mit jedem Treffer um eins hochgezählt.
+Ausserdem wird die aktuell gerenderte Bullet aus dem currentSpaceshipBullets Array herausgefiltert, falls diese einen Invader getroffen hat.
 
-### function renderInvaderrow
+* Das gleiche Prinzip haben wir für die Obstacles übernommen, dass die aktuell gerenderte Bullet auch checkt ob sich über ihr ein `=` befindet, auch in diesem Fall wird die Bullet gelöscht.
+
 
 
 
 
 ### Zusammenfassung
+Abläufe:
+* die Invaderreihe wird generiert und bewegt sich dann:
+
+* ein Invader wird abgeschossen:
 
 
 
@@ -213,30 +240,3 @@ currentSpaceshipBullets = currentSpaceshipBullets.f(currentBullet => currentBull
 
 
 
-
-* `drinkBeer(beer)`: trinkt ein Bier, welches als Parameter übergeben wird und vom Typ / Klasse "Beer" sein muss
-(Funktion)
-* `isDrunk`: gibt an ob eine Person betrunken ist (Property, Boolean)
-
-_Zentrale Funktionen (die nicht zu Klassen gehören) folgen dem selben Muster, werden aber meist etwas ausführlicher
-beschrieben:_
-
-`haveParty(persons[], interval)`: Eine Funktion die ein Array von Personen entgegennimmt, und diese dann im angegebenen
-Intervall Bier trinken lässt. Nach jedem Durchlauf durch das Biertrinken (durch Aufruf von drinkBeer mit einem neu
-erzeugten Bier-Objekt) wird überprüft, ob die Anzahl der betrunkenen Personen größer 0 ist. Wenn dies eintritt, wird das
-Intervall bei jedem Durchlauf auf die doppelte Länge verlängert. Die Funktion endet in ihrer Ausführung dann wenn alle
-Personen isDrunk = true zurückgeben, oder wenn das Interval größer als 1 Stunde wird. Wird die Funktion mit nur einer
-Person im Array aufgerufen, wird eine Warnmeldung ausgegeben, um versehentliches Trinken alleine zu vermeiden.
-
-_(Achtung: Hier werden nur Funktionen beschrieben, die eine zentrale Rolle einnehmen.)_
-
-Nach der Beschreibung der elementaren Bestandteile wird aus der Vogelperspektive nochmals beschrieben, welche
-Gesamtzustände euer System durchlaufen kann. In diesem Fall würde der User zunächst 0 bis n Personen erzeugen, und diese
-mit haveParty() zum Bier trinken bringen. Dabei wird innerhalb von haveParty nacheinander für jede Person drinkBeer()
-aufgerufen, unter Benutzung von neuen Bier-Objekten. Nach Ende der Party muss das Programm neu gestartet werden um die
-Zustände zurückzusetzen.
-
-_(Achtung, dieser Teil liest sich jetzt sehr ähnlich zur Funktionsbeschreibung von haveParty - das liegt daran dass es
-im Beispiel nur eine zentrale Funktion gibt. Ihr habt aber mehrere die zusammenspielen!)._Eine Variable um eine Person
-in Code abzubilden. Enthält typische Eigenschaften und
-Methoden von Menschen, um mit Bier zu interagieren:
