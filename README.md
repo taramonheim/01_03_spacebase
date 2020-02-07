@@ -56,20 +56,33 @@ Wir haben das Spiel anhand von Klassen aufgebaut,
 deren Eigenschaften wir in der Javascript Datei angegeben haben. In der Html Datei greifen wir auf diese Klassen zu.
 
 ### **class Invader**:
- Hier ruft die Klasse Invader durch den constructor ihre `Appaerance` und `id` auf.
 
-<pre>class Invader {
+<pre>
+class Invader {
   constructor(appearance, ischBinKaputt, explodeTime, id) {
     this.appearance = appearance;
     this.id = id;
     this.ischBinKaputt = ischBinKaputt;
     this.explodeTime = explodeTime;
-  } </pre>
+  }
+  shootLaser() {
+    console.log("Invader " + this.id + " Laser shot")
+  }
+  explode() { 
+    this.appearance = ["                ",
+      "   \\   |   /    ",
+      " -  p u f f  -  ",
+      "   /   |   \\    ",
+      "                "
+    ];
+  }
+}
+ </pre>
 
-### **class InvaderRow** 
-Eine Klasse, die die Invader in einer Reihe generiert. Mit den Eigenschaften Position der Reihe, der
-Breite und Höhe, zudem greift sie auf unsere erzeugten invaders zu und hat selber eine id.
+* hier haben wir der Klasse Invader die Eigenschaften `appearance`, `ischBinKaputt`, `explodeTime` und `id` zugeorndet.
+Außerdem haben wir ihm die Methode `explode()` gegeben,um sein Aussehen nach dem Explodieren zu bestimmen.
 
+### **class InvaderRow**
 <pre>
 class InvaderRow {
   constructor(posX, posY, width, height, invaders, id) {
@@ -82,12 +95,11 @@ class InvaderRow {
   }
   </pre>
 
-### **static generateInvader:**
-Eine Variable, um den Invader in Code abzubilden. Enthält typische Eigenschaften des
-Invaders:
+* Die Klasse `InvaderRow` beinhaltet ihre eigene Position und invader.
 
->Mit Static deklariert man solche Variablen, die bei jedem Objekt einer Klasse gleich sein sollen und sobald die
-Variable in einem der Objekte verändert wurden, auch bei allen anderen Objekten der Klasse verändert werden
+### **static generateInvader:**
+
+>Das <kbd>static</kbd> Schüsselwort definiert statische Methoden für eine Klasse.
 
 <pre> static generateInvader(width, height) {
     let currentInvader = [];
@@ -106,15 +118,12 @@ Variable in einem der Objekte verändert wurden, auch bei allen anderen Objekten
   </pre>
 
 * `width, height`: Invadergröße (Property)
-* `currentInvader`: Hier wird der current Invader generiert.
-- eine zufällige Zahl wird generiert ist diese größer oder gleich 0.5, so wird ein "#" an diese Stelle des
-currentInvaders Arrays geschrieben. Somit hat man die Hälfte diesens und sie wird gespiegelt.
+* `currentInvader`: ist ein Array, in das so viele Strings generiert werden, wie der Invader hoch ist
+* eine zufällige Zahl wird generiert ist diese größer oder gleich `0.5`, so wird ein `"#"` an diese Stelle des
+currentInvaders Arrays geschrieben. Somit hat man die Hälfte dieses Invaders. Diese wird anschließend gespiegelt.
 
+### **static generateInvaderRow:**
 
-### **static generateInvaderRow:** 
-
-Eine Variable um eine Person in Code abzubilden. Enthält typische Eigenschaften und
-Methoden von Menschen, um mit Bier zu interagieren:
 <pre>  static generateInvaderRow(invaderWidth, invaderHeight) {
     let currentInvaders = [];
     let rowWidth = Math.floor(cols * 0.8); 
@@ -130,16 +139,40 @@ Methoden von Menschen, um mit Bier zu interagieren:
   }
 }</pre>
 
-# function renderBullets
+* hier wird ausgerechnet wie viele Invader in 80 % der Spielfeldbreite passen. Anschließend werden so viele Invader in ein Array gepusht.
+
+
+### function renderBullets
+
+<pre>	
+function renderBullets() {
+currentSpaceshipBullets = currentSpaceshipBullets.filter(bullet => bullet.y > 1);
+currentSpaceshipBullets.forEach((bullet) => {
+bullet.y -= 1;if (renderStr[xyToStringPos(bullet.x, bullet.y - 1)'#') {
+let currentId = 0;
+for (let invaderPos = invaders[rowId].posX; invade<= invaders[rowId].posX + 5 * (invaderWidth * 2 +
+		invaderWidth / 2); invaderPos = invaderPinvaderWidth * 2 + invaderWidth / 2) {
+if (bullet.x > invaderPos && bullet.x < invaderPinvaderWidth *2) { 
+invaders[rowId].invaders[currentId].ischBinKaputrue; 
+invaders[rowId].invaders[currentId].explode();
+
+invaderPoints++; 
+loop
+break; 
+}
+currentId++;
+}
+currentSpaceshipBullets = currentSpaceshipBullets.f(currentBullet => currentBullet != bullet);}if (renderStr[xyToStringPos(bullet.x, bullet.y - 1)'=') {
+currentSpaceshipBullets = currentSpaceshipBullets.f(currentBullet => currentBullet != bullet);}renderStr = Helper.setCharsAt(renderStr, xyToStri(bullet.x, bullet.y), "|")}</pre>
+
+* 
+
+### function renderInvaderrow
 
 
 
-# function renderInvaderrow
 
-
-
-
-# Zusammenfassung
+### Zusammenfassung
 
 
 
@@ -203,4 +236,6 @@ aufgerufen, unter Benutzung von neuen Bier-Objekten. Nach Ende der Party muss da
 Zustände zurückzusetzen.
 
 _(Achtung, dieser Teil liest sich jetzt sehr ähnlich zur Funktionsbeschreibung von haveParty - das liegt daran dass es
-im Beispiel nur eine zentrale Funktion gibt. Ihr habt aber mehrere die zusammenspielen!)._
+im Beispiel nur eine zentrale Funktion gibt. Ihr habt aber mehrere die zusammenspielen!)._Eine Variable um eine Person
+in Code abzubilden. Enthält typische Eigenschaften und
+Methoden von Menschen, um mit Bier zu interagieren:

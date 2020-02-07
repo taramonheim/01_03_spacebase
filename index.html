@@ -9,7 +9,7 @@
 </head>
 
 <body>
-	<p class="scoreboard" id="scoreboard">SCOREBOARD<br></p>
+	<p class="scoreboard" id="scoreboard">SCOREBOARD<br></p> <!--hier wird das scoreboard in der css file definiert-->
 	<p class="spaceinvaders" id="spaceinvaders">Space Invaders</p>
 	<pre id="console">
   <!-- Hier landet später der Output aus Javascript -->
@@ -136,7 +136,7 @@
 		}
 
 		function renderBullets() {
-			//Kugeln entfernen die am oberen Rand angekommen sind ohne Treffer
+		//Kugeln entfernen die am oberen Rand angekommen sind ohne Treffer
 			currentSpaceshipBullets = currentSpaceshipBullets.filter(bullet => bullet.y > 1);
 			//Kugeln einen Schritt weiter bewegen, dann rendern
 			currentSpaceshipBullets.forEach((bullet) => {
